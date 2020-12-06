@@ -4,6 +4,8 @@ import Home from './HomeComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import { BOOKS } from '../shared/books';
+import BookInfo from './BookInfoComponent';
+import Reader from './ReaderComponent';
 
 class Main extends Component {
     constructor(props) {
@@ -23,11 +25,21 @@ class Main extends Component {
             );
         }
 
+        const BookWithId = ({match}) => {
+            return (
+                <BookInfo 
+                    book={this.state.books.filter(books => books.id === +match.params.bookId)[0]}
+                />
+            );
+        };
+
         return (
             <div>
                 <Header />
                 <Switch>
-                    <Route path='/home' component={HomePage} />             
+                    <Route path='/home' component={HomePage} />
+                    <Route exact path='/readers' render={() => <Reader books={this.state.books} />} />
+                    <Route path='/readers/:bookId' component={BookWithId} />             
                     <Redirect to='/home' />
                 </Switch>
                 <Footer />
