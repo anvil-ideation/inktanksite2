@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
                         <div class="col-12">
                             <div class="card mb-2">
                                 <div class="cardHorizontal">
-                                    <Link to={`/reader/${book.id}`}>
+                                    <Link to={`/readers/${book.id}`}>
                                         <div class="img-square-wrapper card-img-left-crop-height clearfix d-none d-lg-block">
                                             <img class="card-img-left" src={book.image} alt={book.title} />
                                         </div>
@@ -73,23 +73,27 @@ import { Link } from 'react-router-dom';
             document.getElementById("bookCategory").textContent = `${bookCategoryLabel} book`;
             document.getElementById("bookCategory").setAttribute("name",category.category);
         }
-        const directory = activeBooks.map(book => {
-            return (
-                <div key={book.id} className="col">
-                    <RenderDirectoryItem book={book} />
-                </div>
-            );
-        });
         return (
             <div>
+                <>
                 <ListGroup.Item action onClick={setCategory}>
                 {category.category}
                 </ListGroup.Item>
+                </>
             </div>
         );
     };
 
 function BookAll({props}) {
+
+    const directory = BOOKS.map(book => {
+        return (
+            <div key={book.id} className="col">
+                <RenderDirectoryItem book={book} />
+            </div>
+        );
+    });
+
     return(
         <>
             <div className="col-xs-6 col-md-3">
@@ -98,7 +102,7 @@ function BookAll({props}) {
                 <BookCategories />
             </div>
             <div className="col-xs-6 col-md-9">
-                
+                {directory}
             </div>
         </>
     );
