@@ -4,14 +4,16 @@ import Home from './HomeComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import { BOOKS } from '../shared/books';
+import { FEATUREDBOOKS } from '../shared/featuredbooks';
+import Directory from './DirectoryComponent';
 import BookInfo from './BookInfoComponent';
-import Reader from './ReaderComponent';
 
 class Main extends Component {
     constructor(props) {
     super(props);
     this.state = {
         books: BOOKS,
+        featuredBooks: FEATUREDBOOKS,
         };
     }
 
@@ -20,7 +22,7 @@ class Main extends Component {
         const HomePage = () => {
             return (
                 <Home 
-                    book={this.state.books.filter(book => book.featured)[0]}
+                    book={this.state.books.filter(book => book.featured)}
                 />
             );
         }
@@ -38,7 +40,7 @@ class Main extends Component {
                 <Header />
                 <Switch>
                     <Route path='/home' component={HomePage} />
-                    <Route exact path='/readers' render={() => <Reader books={this.state.books} />} />
+                    <Route exact path='/readers' render={() => <Directory books={this.state.books} />} />
                     <Route path='/readers/:bookId' component={BookWithId} />             
                     <Redirect to='/home' />
                 </Switch>
